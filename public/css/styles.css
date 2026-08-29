@@ -921,6 +921,20 @@ ul { margin: 0; padding: 0; list-style: none; }
 .product-filter-trigger:hover,
 .product-filter-trigger[aria-expanded="true"] { border-color: var(--mv-blue); }
 .product-filter-trigger[aria-invalid="true"] { border-color: #c0392b; }
+
+/* Contact form: same dropdown behaviour as the products filter, but shaped
+   like the other form fields (rounded-rect, not a pill) to match. */
+#topic-select .product-filter-trigger {
+  border-radius: 10px;
+  padding: 13px 15px;
+  font-size: 1rem;
+  line-height: normal;
+}
+#topic-select .product-filter-trigger[aria-expanded="true"] {
+  border-color: var(--mv-blue);
+  box-shadow: 0 0 0 3px rgba(22, 72, 152, .16);
+}
+#topic-select .product-filter-list { border-radius: 10px; }
 .product-filter-trigger .material-symbols-outlined { font-size: 20px; color: var(--mv-body); flex-shrink: 0; }
 .product-filter-label { white-space: nowrap; }
 .product-filter-chevron {
