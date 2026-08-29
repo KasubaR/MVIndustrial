@@ -158,11 +158,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .site-header .nav-cta:hover { background: var(--mv-white); color: var(--mv-blue); box-shadow: none; }
 .site-header.is-solid .nav-cta {
-  background: var(--mv-blue);
-  border-color: transparent;
-  color: var(--mv-white);
+  background: transparent;
+  border-color: var(--mv-blue);
+  color: var(--mv-blue);
 }
-.site-header.is-solid .nav-cta:hover { background: var(--mv-green); color: var(--mv-white); }
+.site-header.is-solid .nav-cta:hover { background: var(--mv-blue); color: var(--mv-white); }
 .nav-links .nav-cta-mobile { display: none; }
 
 /* A gradient line that travels around the button outline. The mask cuts the
