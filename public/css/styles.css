@@ -159,7 +159,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .site-header .nav-cta:hover { background: var(--mv-white); color: var(--mv-blue); box-shadow: none; }
 .site-header.is-solid .nav-cta {
   background: transparent;
-  border-color: var(--mv-blue);
+  border-color: transparent;
   color: var(--mv-blue);
 }
 .site-header.is-solid .nav-cta:hover { background: var(--mv-blue); color: var(--mv-white); }
