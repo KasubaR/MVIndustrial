@@ -349,6 +349,7 @@
       }
       var cell = checkbox.closest(".product-tile-cell");
       var label = checkbox.closest(".product-tile-checkbox");
+      var icon = label ? label.querySelector(".product-tile-checkbox-icon") : null;
       var title = cell.dataset.title;
 
       if (checkbox.checked) {
@@ -358,12 +359,18 @@
         if (label) {
           label.classList.add("is-checked");
         }
+        if (icon) {
+          icon.textContent = "check";
+        }
       } else {
         selectedProducts = selectedProducts.filter(function (selected) {
           return selected !== title;
         });
         if (label) {
           label.classList.remove("is-checked");
+        }
+        if (icon) {
+          icon.textContent = "add";
         }
       }
 
@@ -378,6 +385,10 @@
         });
         Array.prototype.forEach.call(productGrid.querySelectorAll(".product-tile-checkbox.is-checked"), function (label) {
           label.classList.remove("is-checked");
+          var icon = label.querySelector(".product-tile-checkbox-icon");
+          if (icon) {
+            icon.textContent = "add";
+          }
         });
         updateSelectionBar();
       });

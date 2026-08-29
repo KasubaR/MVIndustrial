@@ -59,7 +59,7 @@
             >
               <label class="product-tile-checkbox">
                 <input type="checkbox" class="product-tile-select" aria-label="Select {{ $item }} to enquire about">
-                <span class="material-symbols-outlined" aria-hidden="true">check</span>
+                <span class="material-symbols-outlined product-tile-checkbox-icon" aria-hidden="true">add</span>
               </label>
               <button type="button" class="product-tile">
                 <span class="product-tile-icon material-symbols-outlined" aria-hidden="true">{{ $category['icon'] }}</span>

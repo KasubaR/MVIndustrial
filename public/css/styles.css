@@ -1024,7 +1024,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   cursor: pointer;
   transition: border-color var(--ease), background-color var(--ease);
 }
-.product-tile-checkbox:hover { border-color: var(--mv-blue); }
+.product-tile-checkbox:hover { border-color: var(--mv-blue); background: var(--mv-gray); }
 .product-tile-checkbox input {
   position: absolute;
   inset: 0;
@@ -1034,7 +1034,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .product-tile-checkbox .material-symbols-outlined {
   font-size: 16px;
-  color: transparent;
+  color: var(--mv-body);
   transition: color var(--ease);
 }
 .product-tile-checkbox input:focus-visible ~ .material-symbols-outlined {
