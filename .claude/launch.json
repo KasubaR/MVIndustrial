@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "laravel-mv-site",
+      "runtimeExecutable": "php",
+      "runtimeArgs": ["artisan", "serve", "--port=8792"],
+      "port": 8792
+    }
+  ]
+}
