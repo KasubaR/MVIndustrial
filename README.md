@@ -1,58 +1,87 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# MV Industrial & Mining Supplies Limited — Website
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Corporate marketing site for **MV Industrial & Mining Supplies Limited**, a Zambian-owned industrial and mining supplies, labour hire, procurement, construction and mechanical engineering company based in Kitwe, Copperbelt.
 
-## About Laravel
+Built with Laravel (Blade views, no SPA), Vite and Tailwind CSS.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Home, Services, Service detail, Products, About and Contact pages
+- Contact enquiry form that emails the team (`ContactController` → `ContactEnquiry` mailable), rate-limited to 5 submissions/minute
+- All company content (contact details, services, products, clients, values, stats, etc.) centralised in [`config/company.php`](config/company.php) — update copy there rather than in the Blade views
+- Floating WhatsApp chat button and WhatsApp links sourced from the same config
+- Responsive layout with a shared header/footer across all pages
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Tech stack
 
-## Learning Laravel
+- PHP 8.3+, Laravel 13
+- Blade templates
+- Vite + Tailwind CSS 4
+- SQLite by default for local development (sessions, cache and queue tables)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Getting started
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Requirements
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- PHP 8.3+
+- Composer
+- Node.js + npm
 
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### Setup
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+composer install
+cp .env.example .env
+php artisan key:generate
+touch database/database.sqlite
+php artisan migrate
+npm install
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### Running locally
 
-## Contributing
+```bash
+composer run dev
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+This runs the Laravel server, queue listener and Vite dev server together. Alternatively, run them separately:
 
-## Code of Conduct
+```bash
+php artisan serve
+npm run dev
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+The site is then available at the URL printed by `php artisan serve` (defaults to `http://localhost:8000`).
 
-## Security Vulnerabilities
+### Building assets for production
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+npm run build
+```
 
-## License
+## Configuration
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Copy `.env.example` to `.env` and set:
+
+- `APP_URL` — the site's public URL
+- `MAIL_*` — an SMTP (or other) mailer so contact form enquiries actually deliver; the default `log` mailer just writes emails to the log file
+
+Company details, navigation, services, products, client logos and social/WhatsApp links live in [`config/company.php`](config/company.php). Contact enquiries are sent to `contact.email` from that file.
+
+## Project structure
+
+```
+app/Http/Controllers/   Page and contact form controllers
+app/Mail/                Contact enquiry mailable
+config/company.php       All site content and company details
+resources/views/         Blade templates (pages, sections, partials)
+public/assets/           Images, logos and client marks
+public/css/styles.css    Compiled/hand-authored site styles
+routes/web.php           Route definitions
+```
+
+## Testing
+
+```bash
+php artisan test
+```
