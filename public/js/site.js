@@ -222,7 +222,7 @@
     var filterTrigger = document.getElementById("product-filter-trigger");
     var filterLabel = document.getElementById("product-filter-label");
     var filterList = document.getElementById("product-filter-list");
-    var tiles = Array.prototype.slice.call(productGrid.querySelectorAll(".product-tile"));
+    var tiles = Array.prototype.slice.call(productGrid.querySelectorAll(".product-tile-cell"));
     var emptyState = document.getElementById("product-empty");
     var pagination = document.getElementById("product-pagination");
     var paginationPages = document.getElementById("pagination-pages");
@@ -318,6 +318,71 @@
 
     renderProducts();
 
+    // Multi-select: check any number of tiles, then send them all as one
+    // enquiry. Selection is independent of the current search/filter/page,
+    // so a checked tile stays selected even once it's scrolled out of view.
+    var selectionBar = document.getElementById("product-selection-bar");
+    var selectionCount = document.getElementById("product-selection-count");
+    var selectionClear = document.getElementById("product-selection-clear");
+    var selectionEnquire = document.getElementById("product-selection-enquire");
+    var selectedProducts = [];
+
+    function updateSelectionBar() {
+      var count = selectedProducts.length;
+      selectionCount.textContent = count === 1 ? "1 product selected" : count + " products selected";
+      selectionBar.classList.toggle("is-visible", count > 0);
+      document.body.classList.toggle("has-selection-bar", count > 0);
+
+      if (selectionEnquire) {
+        var params = new URLSearchParams({
+          topic: selectionEnquire.dataset.topic,
+          items: selectedProducts.join("|")
+        });
+        selectionEnquire.href = selectionEnquire.dataset.contactUrl + "?" + params.toString() + "#enquiry";
+      }
+    }
+
+    productGrid.addEventListener("change", function (event) {
+      var checkbox = event.target.closest(".product-tile-select");
+      if (!checkbox) {
+        return;
+      }
+      var cell = checkbox.closest(".product-tile-cell");
+      var label = checkbox.closest(".product-tile-checkbox");
+      var title = cell.dataset.title;
+
+      if (checkbox.checked) {
+        if (selectedProducts.indexOf(title) === -1) {
+          selectedProducts.push(title);
+        }
+        if (label) {
+          label.classList.add("is-checked");
+        }
+      } else {
+        selectedProducts = selectedProducts.filter(function (selected) {
+          return selected !== title;
+        });
+        if (label) {
+          label.classList.remove("is-checked");
+        }
+      }
+
+      updateSelectionBar();
+    });
+
+    if (selectionClear) {
+      selectionClear.addEventListener("click", function () {
+        selectedProducts = [];
+        Array.prototype.forEach.call(productGrid.querySelectorAll(".product-tile-select:checked"), function (checkbox) {
+          checkbox.checked = false;
+        });
+        Array.prototype.forEach.call(productGrid.querySelectorAll(".product-tile-checkbox.is-checked"), function (label) {
+          label.classList.remove("is-checked");
+        });
+        updateSelectionBar();
+      });
+    }
+
     // Lightbox: since there are no product photos yet, this gives a larger,
     // uncluttered look at one product — icon, name, category and context.
     var modal = document.getElementById("product-modal");
@@ -330,16 +395,17 @@
     var modalEnquireLink = document.getElementById("product-modal-enquire");
     var modalTrigger = null;
 
-    function openModal(tile) {
-      modalTrigger = tile;
-      modalIconGlyph.textContent = tile.dataset.icon;
-      modalTag.textContent = tile.dataset.categoryTitle;
-      modalTitle.textContent = tile.dataset.title;
-      modalSummary.textContent = tile.dataset.categorySummary;
+    function openModal(triggerButton) {
+      var cell = triggerButton.closest(".product-tile-cell");
+      modalTrigger = triggerButton;
+      modalIconGlyph.textContent = cell.dataset.icon;
+      modalTag.textContent = cell.dataset.categoryTitle;
+      modalTitle.textContent = cell.dataset.title;
+      modalSummary.textContent = cell.dataset.categorySummary;
       if (modalEnquireLink) {
         var params = new URLSearchParams({
           topic: modalEnquireLink.dataset.topic,
-          subject: tile.dataset.title
+          subject: cell.dataset.title
         });
         modalEnquireLink.href = modalEnquireLink.dataset.contactUrl + "?" + params.toString() + "#enquiry";
       }

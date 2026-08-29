@@ -987,6 +987,13 @@ ul { margin: 0; padding: 0; list-style: none; }
   gap: 16px;
 }
 
+/* Wraps each tile so a selection checkbox can sit on top of the
+   modal-opening button without nesting one interactive element inside
+   another. JS hides/shows this wrapper for search, filtering and
+   pagination — its plain `display:block` default means the [hidden] UA
+   rule applies with nothing to out-specificity it. */
+.product-tile-cell { position: relative; }
+
 .product-tile {
   display: block;
   width: 100%;
@@ -1001,10 +1008,41 @@ ul { margin: 0; padding: 0; list-style: none; }
   transition: border-color var(--ease), box-shadow var(--ease), transform var(--ease);
 }
 .product-tile:hover { border-color: transparent; box-shadow: var(--shadow-md); transform: translateY(-3px); }
-/* `display: block` above ties the [hidden] UA rule on specificity and (being
-   ours) would win the cascade, so JS-driven pagination/filtering never
-   actually hid anything without this. */
-.product-tile[hidden] { display: none; }
+
+.product-tile-checkbox {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  border: 1px solid var(--mv-line);
+  background: var(--mv-white);
+  cursor: pointer;
+  transition: border-color var(--ease), background-color var(--ease);
+}
+.product-tile-checkbox:hover { border-color: var(--mv-blue); }
+.product-tile-checkbox input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.product-tile-checkbox .material-symbols-outlined {
+  font-size: 16px;
+  color: transparent;
+  transition: color var(--ease);
+}
+.product-tile-checkbox input:focus-visible ~ .material-symbols-outlined {
+  outline: 2px solid var(--mv-blue);
+  outline-offset: 2px;
+}
+.product-tile-checkbox.is-checked { background: var(--mv-blue); border-color: var(--mv-blue); }
+.product-tile-checkbox.is-checked .material-symbols-outlined { color: var(--mv-white); }
 
 .product-tile-icon {
   display: grid;
@@ -1146,6 +1184,45 @@ ul { margin: 0; padding: 0; list-style: none; }
 .product-modal-dialog .btn { width: 100%; }
 
 body.modal-open, body.nav-open { overflow: hidden; }
+
+/* Products: floating bar that appears once one or more tiles are checked,
+   letting several products be enquired about in a single message. */
+.product-selection-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 24px;
+  background: var(--mv-white);
+  border-top: 1px solid var(--mv-line);
+  box-shadow: 0 -8px 24px rgba(16, 25, 43, .12);
+  transform: translateY(100%);
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform .28s ease, visibility 0s linear .28s;
+}
+.product-selection-bar.is-visible {
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+  transition: transform .28s ease;
+}
+.product-selection-count { font-weight: 600; color: var(--mv-ink); }
+.product-selection-actions { display: flex; gap: 12px; flex-shrink: 0; }
+
+/* Keeps the WhatsApp bubble from sitting under the selection bar. */
+body.has-selection-bar .whatsapp-float { bottom: 104px; }
+
+@media (max-width: 640px) {
+  .product-selection-bar { flex-direction: column; align-items: stretch; padding: 14px 16px; }
+  .product-selection-actions .btn { flex: 1; }
+  body.has-selection-bar .whatsapp-float { bottom: 148px; }
+}
 
 .safety-band {
   background: var(--mv-gray);

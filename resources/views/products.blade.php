@@ -48,9 +48,8 @@
       <div class="product-grid" id="product-grid">
         @foreach (config('company.products') as $category)
           @foreach ($category['items'] as $item)
-            <button
-              type="button"
-              class="product-tile"
+            <div
+              class="product-tile-cell"
               data-category="{{ $category['slug'] }}"
               data-name="{{ strtolower($item) }}"
               data-title="{{ $item }}"
@@ -58,10 +57,16 @@
               data-category-title="{{ $category['title'] }}"
               data-category-summary="{{ $category['summary'] }}"
             >
-              <span class="product-tile-icon material-symbols-outlined" aria-hidden="true">{{ $category['icon'] }}</span>
-              <span class="product-tile-name">{{ $item }}</span>
-              <span class="product-tile-tag">{{ $category['title'] }}</span>
-            </button>
+              <label class="product-tile-checkbox">
+                <input type="checkbox" class="product-tile-select" aria-label="Select {{ $item }} to enquire about">
+                <span class="material-symbols-outlined" aria-hidden="true">check</span>
+              </label>
+              <button type="button" class="product-tile">
+                <span class="product-tile-icon material-symbols-outlined" aria-hidden="true">{{ $category['icon'] }}</span>
+                <span class="product-tile-name">{{ $item }}</span>
+                <span class="product-tile-tag">{{ $category['title'] }}</span>
+              </button>
+            </div>
           @endforeach
         @endforeach
       </div>
@@ -77,6 +82,14 @@
       </nav>
     </div>
   </section>
+
+  <div class="product-selection-bar" id="product-selection-bar">
+    <span class="product-selection-count" id="product-selection-count">0 products selected</span>
+    <div class="product-selection-actions">
+      <button type="button" class="btn btn-outline" id="product-selection-clear">Clear</button>
+      <a class="btn btn-primary" id="product-selection-enquire" href="{{ route('contact') }}" data-contact-url="{{ route('contact') }}" data-topic="Industrial &amp; Mining Supplies">Enquire about selected</a>
+    </div>
+  </div>
 
   <div class="product-modal" id="product-modal" hidden>
     <div class="product-modal-backdrop" data-modal-dismiss></div>

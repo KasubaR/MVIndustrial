@@ -45,13 +45,23 @@ class PageController extends Controller
     {
         // Deep links from a service/product "Enquire" button carry a topic
         // (must match a config('company.enquiry_topics') entry exactly) and
-        // an optional subject to seed the message field.
+        // either a single subject or a pipe-separated list of selected
+        // products, used to seed the message field.
         $topic = collect(config('company.enquiry_topics'))
             ->first(fn (string $option) => $option === $request->query('topic'));
 
-        $prefillMessage = $topic && $request->filled('subject')
-            ? "I'd like to enquire about {$request->query('subject')}.\n\n"
-            : null;
+        $items = collect(explode('|', (string) $request->query('items')))
+            ->map(fn (string $item) => trim($item))
+            ->filter()
+            ->take(20);
+
+        $prefillMessage = match (true) {
+            $topic && $items->isNotEmpty() => "I'd like to enquire about the following products:\n"
+                .$items->map(fn (string $item) => "- {$item}")->implode("\n")
+                ."\n\n",
+            $topic && $request->filled('subject') => "I'd like to enquire about {$request->query('subject')}.\n\n",
+            default => null,
+        };
 
         return view('contact', [
             'prefillTopic' => $topic,
