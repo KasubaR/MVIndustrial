@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class PageController extends Controller
@@ -40,8 +41,21 @@ class PageController extends Controller
         return view('service-detail', compact('service', 'related'));
     }
 
-    public function contact(): View
+    public function contact(Request $request): View
     {
-        return view('contact');
+        // Deep links from a service/product "Enquire" button carry a topic
+        // (must match a config('company.enquiry_topics') entry exactly) and
+        // an optional subject to seed the message field.
+        $topic = collect(config('company.enquiry_topics'))
+            ->first(fn (string $option) => $option === $request->query('topic'));
+
+        $prefillMessage = $topic && $request->filled('subject')
+            ? "I'd like to enquire about {$request->query('subject')}.\n\n"
+            : null;
+
+        return view('contact', [
+            'prefillTopic' => $topic,
+            'prefillMessage' => $prefillMessage,
+        ]);
     }
 }

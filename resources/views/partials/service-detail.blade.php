@@ -29,6 +29,6 @@
       </ul>
     @endif
 
-    <a class="btn btn-primary" href="{{ route('contact') }}">Enquire about this service</a>
+    <a class="btn btn-primary" href="{{ route('contact', array_filter(['topic' => $service['topic'] ?? null, 'subject' => $service['title']])) }}#enquiry">Enquire about this service</a>
   </div>
 </article>

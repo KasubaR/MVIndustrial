@@ -17,6 +17,7 @@
 
   function setMenu(open) {
     nav.classList.toggle("is-open", open);
+    document.body.classList.toggle("nav-open", open);
     toggle.setAttribute("aria-expanded", String(open));
     toggleIcon.textContent = open ? "close" : "menu";
     syncHeader();
@@ -79,6 +80,136 @@
     yearSlot.textContent = String(new Date().getFullYear());
   }
 
+  // Shared custom-select behaviour (trigger button + listbox) used by both
+  // the products page category filter and the contact form's "What do you
+  // need?" field, so the two look and behave identically.
+  function initListboxSelect(wrap, trigger, list, onSelect) {
+    var options = list.querySelectorAll("li");
+    var focusedIndex = -1;
+
+    function setFocusedOption(index) {
+      options.forEach(function (option, i) {
+        option.classList.toggle("is-focused", i === index);
+      });
+      focusedIndex = index;
+      if (index >= 0) {
+        options[index].scrollIntoView({ block: "nearest" });
+      }
+    }
+
+    function isOpen() {
+      return !list.hidden;
+    }
+
+    function open() {
+      list.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+      var selectedIndex = Array.prototype.findIndex.call(options, function (option) {
+        return option.classList.contains("is-selected");
+      });
+      setFocusedOption(selectedIndex === -1 ? 0 : selectedIndex);
+    }
+
+    function close(focusTrigger) {
+      list.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+      setFocusedOption(-1);
+      if (focusTrigger) {
+        trigger.focus();
+      }
+    }
+
+    function select(option) {
+      options.forEach(function (o) {
+        var selected = o === option;
+        o.classList.toggle("is-selected", selected);
+        o.setAttribute("aria-selected", String(selected));
+      });
+      onSelect(option);
+    }
+
+    trigger.addEventListener("click", function () {
+      if (isOpen()) {
+        close(false);
+      } else {
+        open();
+      }
+    });
+
+    list.addEventListener("click", function (event) {
+      var option = event.target.closest("li");
+      if (!option) {
+        return;
+      }
+      select(option);
+      close(true);
+    });
+
+    // Keyboard interaction on the trigger only opens the list and hands focus
+    // to it (tabindex="-1") — otherwise the list's own keydown handler below
+    // never fires, since focus never actually left the trigger.
+    trigger.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowDown" || event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        if (!isOpen()) {
+          open();
+        }
+        list.focus();
+      }
+    });
+
+    list.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        setFocusedOption(Math.min(focusedIndex + 1, options.length - 1));
+      } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        setFocusedOption(Math.max(focusedIndex - 1, 0));
+      } else if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        if (focusedIndex >= 0) {
+          select(options[focusedIndex]);
+        }
+        close(true);
+      } else if (event.key === "Escape") {
+        event.preventDefault();
+        close(true);
+      }
+    });
+
+    // Covers Tab-away and any other focus loss, mobile included.
+    wrap.addEventListener("focusout", function () {
+      window.requestAnimationFrame(function () {
+        if (!wrap.contains(document.activeElement)) {
+          close(false);
+        }
+      });
+    });
+
+    document.addEventListener("click", function (event) {
+      if (isOpen() && !wrap.contains(event.target)) {
+        close(false);
+      }
+    });
+
+    return { open: open, close: close, isOpen: isOpen };
+  }
+
+  // Contact form: "What do you need?" uses the same custom dropdown as the
+  // products page category filter, backed by a hidden input for submission.
+  var topicSelect = document.getElementById("topic-select");
+  if (topicSelect) {
+    var topicTrigger = document.getElementById("topic-trigger");
+    var topicList = document.getElementById("topic-list");
+    var topicLabel = document.getElementById("topic-select-label");
+    var topicInput = document.getElementById("topic");
+
+    initListboxSelect(topicSelect, topicTrigger, topicList, function (option) {
+      topicLabel.textContent = option.dataset.label;
+      topicInput.value = option.dataset.value;
+    });
+  }
+
   // Products page: client-side search + a custom (non-native) category
   // dropdown, paginated tile grid (max 5 per row, set in CSS) and a lightbox
   // for viewing one product at a time.
@@ -91,7 +222,6 @@
     var filterTrigger = document.getElementById("product-filter-trigger");
     var filterLabel = document.getElementById("product-filter-label");
     var filterList = document.getElementById("product-filter-list");
-    var filterOptions = filterList.querySelectorAll("li");
     var tiles = Array.prototype.slice.call(productGrid.querySelectorAll(".product-tile"));
     var emptyState = document.getElementById("product-empty");
     var pagination = document.getElementById("product-pagination");
@@ -101,7 +231,6 @@
 
     var activeFilter = "all";
     var currentPage = 1;
-    var focusedIndex = -1;
 
     function matchingTiles() {
       var query = (searchInput.value || "").trim().toLowerCase();
@@ -179,111 +308,10 @@
       renderProducts();
     });
 
-    function setFocusedOption(index) {
-      filterOptions.forEach(function (option, i) {
-        option.classList.toggle("is-focused", i === index);
-      });
-      focusedIndex = index;
-      if (index >= 0) {
-        filterOptions[index].scrollIntoView({ block: "nearest" });
-      }
-    }
-
-    function openFilter() {
-      filterList.hidden = false;
-      filterTrigger.setAttribute("aria-expanded", "true");
-      var selectedIndex = Array.prototype.findIndex.call(filterOptions, function (option) {
-        return option.dataset.filter === activeFilter;
-      });
-      setFocusedOption(selectedIndex === -1 ? 0 : selectedIndex);
-    }
-
-    function closeFilter(focusTrigger) {
-      filterList.hidden = true;
-      filterTrigger.setAttribute("aria-expanded", "false");
-      setFocusedOption(-1);
-      if (focusTrigger) {
-        filterTrigger.focus();
-      }
-    }
-
-    function isFilterOpen() {
-      return !filterList.hidden;
-    }
-
-    function selectOption(option) {
+    initListboxSelect(filterWrap, filterTrigger, filterList, function (option) {
       activeFilter = option.dataset.filter;
       filterLabel.textContent = option.dataset.label;
-      filterOptions.forEach(function (o) {
-        var selected = o === option;
-        o.classList.toggle("is-selected", selected);
-        o.setAttribute("aria-selected", String(selected));
-      });
       applyProductFilters();
-    }
-
-    filterTrigger.addEventListener("click", function () {
-      if (isFilterOpen()) {
-        closeFilter(false);
-      } else {
-        openFilter();
-      }
-    });
-
-    filterList.addEventListener("click", function (event) {
-      var option = event.target.closest("li");
-      if (!option) {
-        return;
-      }
-      selectOption(option);
-      closeFilter(true);
-    });
-
-    // Keyboard interaction on the trigger only opens the list and hands focus
-    // to it (tabindex="-1") — otherwise the list's own keydown handler below
-    // never fires, since focus never actually left the trigger.
-    filterTrigger.addEventListener("keydown", function (event) {
-      if (event.key === "ArrowDown" || event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        if (!isFilterOpen()) {
-          openFilter();
-        }
-        filterList.focus();
-      }
-    });
-
-    filterList.addEventListener("keydown", function (event) {
-      if (event.key === "ArrowDown") {
-        event.preventDefault();
-        setFocusedOption(Math.min(focusedIndex + 1, filterOptions.length - 1));
-      } else if (event.key === "ArrowUp") {
-        event.preventDefault();
-        setFocusedOption(Math.max(focusedIndex - 1, 0));
-      } else if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        if (focusedIndex >= 0) {
-          selectOption(filterOptions[focusedIndex]);
-        }
-        closeFilter(true);
-      } else if (event.key === "Escape") {
-        event.preventDefault();
-        closeFilter(true);
-      }
-    });
-
-    // Covers Tab-away and any other focus loss, mobile included.
-    filterWrap.addEventListener("focusout", function () {
-      window.requestAnimationFrame(function () {
-        if (!filterWrap.contains(document.activeElement)) {
-          closeFilter(false);
-        }
-      });
-    });
-
-    document.addEventListener("click", function (event) {
-      if (isFilterOpen() && !filterWrap.contains(event.target)) {
-        closeFilter(false);
-      }
     });
 
     searchInput.addEventListener("input", applyProductFilters);
@@ -299,6 +327,7 @@
     var modalTitle = document.getElementById("product-modal-title");
     var modalSummary = document.getElementById("product-modal-summary");
     var modalCloseBtn = document.getElementById("product-modal-close");
+    var modalEnquireLink = document.getElementById("product-modal-enquire");
     var modalTrigger = null;
 
     function openModal(tile) {
@@ -307,6 +336,13 @@
       modalTag.textContent = tile.dataset.categoryTitle;
       modalTitle.textContent = tile.dataset.title;
       modalSummary.textContent = tile.dataset.categorySummary;
+      if (modalEnquireLink) {
+        var params = new URLSearchParams({
+          topic: modalEnquireLink.dataset.topic,
+          subject: tile.dataset.title
+        });
+        modalEnquireLink.href = modalEnquireLink.dataset.contactUrl + "?" + params.toString() + "#enquiry";
+      }
       modal.hidden = false;
       document.body.classList.add("modal-open");
       modalCloseBtn.focus();

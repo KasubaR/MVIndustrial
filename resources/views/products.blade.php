@@ -90,7 +90,7 @@
       <p class="product-modal-tag" id="product-modal-tag"></p>
       <h2 id="product-modal-title"></h2>
       <p class="product-modal-summary" id="product-modal-summary"></p>
-      <a class="btn btn-primary" href="{{ route('contact') }}">Enquire about this product</a>
+      <a class="btn btn-primary" id="product-modal-enquire" href="{{ route('contact') }}" data-contact-url="{{ route('contact') }}" data-topic="Industrial &amp; Mining Supplies">Enquire about this product</a>
     </div>
   </div>
 
