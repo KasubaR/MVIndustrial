@@ -1,7 +1,7 @@
 <section class="section section-muted" id="about">
   <div class="shell about-grid about-grid-stretch">
     <div class="about-copy">
-      <p class="eyebrow eyebrow-dark">About us</p>
+      <p class="eyebrow eyebrow-dark about-eyebrow">About us</p>
       <h2>Wholly Zambian-owned, built on delivery</h2>
       <p>
         {{ config('company.name') }} was incorporated in the Republic of Zambia under the

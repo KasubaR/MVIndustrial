@@ -12,7 +12,7 @@
       </p>
       <div class="hero-actions">
         <a class="btn btn-primary btn-lg" href="{{ route('services') }}">Explore Our Services</a>
-        <a class="btn btn-ghost btn-lg" href="{{ route('contact') }}">Talk to Our Team</a>
+        <a class="btn btn-ghost btn-lg hero-talk-btn" href="{{ route('contact') }}">Talk to Our Team</a>
       </div>
     </div>
   </div>

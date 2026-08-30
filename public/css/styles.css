@@ -1289,6 +1289,12 @@ body.has-selection-bar .whatsapp-float { bottom: 104px; }
   .about-grid, .contact-grid, .contact-page-grid { grid-template-columns: 1fr; gap: 40px; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 
+  /* Home page teaser: on a single column, show the image right under the eyebrow
+     instead of after all the copy. */
+  .about-grid-stretch .about-copy { display: contents; }
+  .about-grid-stretch .about-eyebrow { order: -1; }
+  .about-grid-stretch .about-copy > :not(.about-eyebrow) { order: 1; }
+
   .service-list { gap: 68px; }
   .service-detail { grid-template-columns: 1fr; gap: 32px; }
   .service-detail:nth-child(even) .service-figure { order: 0; }
@@ -1365,6 +1371,7 @@ body.has-selection-bar .whatsapp-float { bottom: 104px; }
   .enquiry-form .btn { justify-self: stretch; width: 100%; }
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
   .hero-actions .btn, .quote-actions .btn { width: 100%; }
+  .hero-talk-btn { display: none; }
   .quote-card { padding: 44px 24px; }
   .service-points, .safety-points { grid-template-columns: 1fr; }
   .spec-grid { grid-template-columns: 1fr; }
