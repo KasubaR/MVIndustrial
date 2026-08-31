@@ -166,6 +166,12 @@ return [
             'topic' => 'Construction & Civil Engineering',
             'lead' => 'We deliver ground-up builds, renovations and infrastructure works with precision, safety and durability at the core. Our civil capability extends from equipment bases and concrete repair through to housing developments and steel fabrication.',
             'image' => 'construction.jpg',
+            // construction.jpg is used for the page hero above, so the
+            // in-page gallery below uses the two other on-site photos only.
+            'images' => [
+                ['file' => 'construction-scaffold.jpg', 'alt' => 'Crane and scaffold erection at a structural steel site'],
+                ['file' => 'construction-pipeline.jpg', 'alt' => 'Large-diameter pipeline being laid on a civil works site'],
+            ],
             'alt' => 'Civil engineering works under construction',
             'points' => [
                 'Residential, commercial and industrial building works',

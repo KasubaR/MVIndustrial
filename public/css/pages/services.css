@@ -7,7 +7,8 @@
   align-items: start;
   scroll-margin-top: var(--scroll-offset);
 }
-.service-detail:nth-child(even) .service-figure { order: 2; }
+.service-detail:nth-child(even) .service-figure,
+.service-detail:nth-child(even) .service-figure-gallery { order: 2; }
 
 .service-figure {
   border-radius: var(--radius);
@@ -17,6 +18,22 @@
   top: var(--scroll-offset);
 }
 .service-figure img { display: block; width: 100%; height: 420px; object-fit: cover; }
+
+/* Services with several on-site photos: a main shot with the extra photos
+   as a static strip underneath, the whole block pinned as one unit while
+   the copy scrolls past beside it. */
+.service-figure-gallery {
+  position: sticky;
+  top: var(--scroll-offset);
+  display: grid;
+  gap: 14px;
+}
+.service-figure-gallery .service-figure { position: static; }
+/* Flex rather than a fixed column count so the strip splits evenly whether
+   there's one extra photo or several. */
+.service-figure-strip { display: flex; gap: 14px; }
+.service-figure-strip .service-figure { flex: 1 1 0; }
+.service-figure-strip .service-figure img { height: 150px; }
 
 .service-body h2 { margin-bottom: 14px; }
 .service-body .icon-tile { margin-bottom: 20px; }

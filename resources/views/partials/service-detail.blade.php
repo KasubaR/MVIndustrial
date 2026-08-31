@@ -1,7 +1,22 @@
 <article class="service-detail" id="{{ $service['slug'] }}">
-  <figure class="service-figure">
-    <img src="{{ asset('assets/images/services/' . $service['image']) }}" alt="{{ $service['alt'] }}" loading="lazy">
-  </figure>
+  @if (! empty($service['images']) && count($service['images']) > 1)
+    <div class="service-figure-gallery">
+      <figure class="service-figure">
+        <img src="{{ asset('assets/images/services/' . $service['images'][0]['file']) }}" alt="{{ $service['images'][0]['alt'] }}" loading="lazy">
+      </figure>
+      <div class="service-figure-strip">
+        @foreach (array_slice($service['images'], 1) as $image)
+          <figure class="service-figure">
+            <img src="{{ asset('assets/images/services/' . $image['file']) }}" alt="{{ $image['alt'] }}" loading="lazy">
+          </figure>
+        @endforeach
+      </div>
+    </div>
+  @else
+    <figure class="service-figure">
+      <img src="{{ asset('assets/images/services/' . $service['image']) }}" alt="{{ $service['alt'] }}" loading="lazy">
+    </figure>
+  @endif
 
   <div class="service-body">
     <span class="icon-tile material-symbols-outlined" aria-hidden="true">{{ $service['icon'] }}</span>

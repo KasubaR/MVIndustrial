@@ -12,9 +12,12 @@
 
   .service-list { gap: 68px; }
   .service-detail { grid-template-columns: 1fr; gap: 32px; }
-  .service-detail:nth-child(even) .service-figure { order: 0; }
+  .service-detail:nth-child(even) .service-figure,
+  .service-detail:nth-child(even) .service-figure-gallery { order: 0; }
   .service-figure { position: static; }
   .service-figure img { height: 320px; }
+  .service-figure-gallery { position: static; }
+  .service-figure-strip .service-figure img { height: 120px; }
   .safety-inner { grid-template-columns: 1fr; gap: 36px; }
   .safety-figure img { max-width: 260px; }
   .values-band { grid-template-columns: 1fr; gap: 36px; }
@@ -106,6 +109,11 @@
   .dot-list-split { grid-template-columns: 1fr; }
   .spec-grid { grid-template-columns: 1fr; }
   .service-figure img { height: 240px; }
+  /* flex-basis:0 from the desktop flex:1 1 0 wins over the image's own
+     height once the axis flips to vertical, collapsing the strip — give
+     stacked items their natural height instead. */
+  .service-figure-strip { flex-direction: column; }
+  .service-figure-strip .service-figure { flex: 0 0 auto; }
   .safety-band { padding: 64px 0; }
 
   .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
