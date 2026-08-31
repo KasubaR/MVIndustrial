@@ -25,7 +25,10 @@
         @endforeach
       </div>
 
-      <a class="btn btn-outline about-more" href="{{ route('about') }}">Read our full story</a>
+      <a class="btn btn-outline about-more" href="{{ route('about') }}">
+        Read our full story
+        <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+      </a>
     </div>
 
     <aside class="about-side about-side-solo">

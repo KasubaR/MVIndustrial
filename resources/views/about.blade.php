@@ -35,52 +35,55 @@
   </section>
 
   <section class="section" id="story">
-    <div class="shell about-grid">
+    <div class="shell about-grid about-grid-stretch">
       <div class="about-copy">
         <p class="eyebrow eyebrow-dark">Our story</p>
         <h2>From industrial supplies to a full-service partner</h2>
         @foreach (config('company.about_story') as $paragraph)
           <p>{{ $paragraph }}</p>
         @endforeach
-
-        <div class="detail-card detail-card-accent about-compliance">
-          <h3>Registered and compliant</h3>
-          <ul class="compliance-list">
-            @foreach (config('company.compliance') as $item)
-              <li>{{ $item }}</li>
-            @endforeach
-          </ul>
-        </div>
       </div>
 
-      <aside class="about-side">
+      <aside class="about-side about-side-solo">
         <figure class="about-figure">
           <img src="{{ asset('assets/images/about/about-technician.jpg') }}" alt="An MV technician in personal protective equipment inside a workshop" loading="lazy">
         </figure>
-        <div class="panel panel-vision">
-          <h3>Our Vision</h3>
-          <p>{{ config('company.vision') }}</p>
-        </div>
-        <div class="panel panel-mission">
-          <h3>Our Mission</h3>
-          <p>{{ config('company.mission') }}</p>
-        </div>
       </aside>
+    </div>
+
+    <div class="shell about-highlights">
+      <div class="panel panel-vision">
+        <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+        <h3>Our Vision</h3>
+        <p>{{ config('company.vision') }}</p>
+      </div>
+      <div class="panel panel-mission">
+        <span class="material-symbols-outlined" aria-hidden="true">flag</span>
+        <h3>Our Mission</h3>
+        <p>{{ config('company.mission') }}</p>
+      </div>
+      <div class="panel panel-compliance">
+        <span class="material-symbols-outlined" aria-hidden="true">policy</span>
+        <h3>Registered and compliant</h3>
+        <ul class="compliance-list">
+          @foreach (config('company.compliance') as $item)
+            <li>{{ $item }}</li>
+          @endforeach
+        </ul>
+      </div>
     </div>
   </section>
 
   <section class="section section-muted" id="values">
-    <div class="shell values-band">
-      <figure class="values-figure">
-        <img src="{{ asset('assets/images/about/about-portrait.jpg') }}" alt="An MV team member wearing a safety helmet" loading="lazy">
-      </figure>
-      <div class="values-copy">
-        <p class="eyebrow eyebrow-dark">Our values</p>
+    <div class="shell about-grid about-grid-stretch">
+      <div class="about-copy">
+        <p class="eyebrow eyebrow-dark about-eyebrow">Our values</p>
         <h2>What we hold ourselves to</h2>
         <p class="section-lead">
           Three principles guide how we quote, hire and deliver, and they are the standard our clients hold us to.
         </p>
-        <div class="value-grid value-grid-stacked">
+
+        <div class="value-grid">
           @foreach (config('company.values') as $value)
             <div class="value">
               <span class="material-symbols-outlined" aria-hidden="true">{{ $value['icon'] }}</span>
@@ -90,6 +93,12 @@
           @endforeach
         </div>
       </div>
+
+      <aside class="about-side about-side-solo">
+        <figure class="about-figure">
+          <img src="{{ asset('assets/images/about/about-portrait.jpg') }}" alt="An MV team member wearing a safety helmet" loading="lazy">
+        </figure>
+      </aside>
     </div>
   </section>
 
@@ -101,7 +110,10 @@
         <p class="section-lead">
           We are measured on uptime, safety and delivery, so that is what we build the business around.
         </p>
-        <a class="btn btn-outline" href="{{ route('services') }}">See what we deliver</a>
+        <a class="btn btn-outline" href="{{ route('services') }}">
+          See what we deliver
+          <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+        </a>
       </div>
 
       <div class="card-grid">

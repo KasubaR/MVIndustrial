@@ -230,6 +230,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .btn:active { transform: scale(.97); }
 .btn-lg { padding: 15px 30px; }
+.btn .material-symbols-outlined { font-size: 18px; transition: transform var(--ease); }
+.btn:hover .material-symbols-outlined { transform: translateX(3px); }
 
 .btn-primary { background: var(--mv-blue); color: var(--mv-white); }
 .btn-primary:hover { background: var(--mv-green); color: var(--mv-white); box-shadow: var(--shadow-md); }
@@ -462,6 +464,40 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .panel-vision { background: var(--mv-blue); }
 .panel-mission { background: linear-gradient(135deg, var(--mv-green), var(--mv-blue)); }
+
+/* Vision / mission / compliance triad: three matched cards instead of two
+   sidebar panels and an orphaned card buried in the story copy. */
+.about-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+.about-highlights .panel {
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--ease), box-shadow var(--ease);
+}
+.about-highlights .panel:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.about-highlights .panel .material-symbols-outlined {
+  display: grid;
+  place-items: center;
+  width: 52px; height: 52px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .18);
+  color: var(--mv-white);
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+.panel-compliance {
+  background: var(--mv-white);
+  border: 1px solid var(--mv-line);
+  color: var(--mv-ink);
+}
+.panel-compliance h3 { color: var(--mv-ink); }
+.panel-compliance .material-symbols-outlined { background: var(--mv-gradient); }
+.panel-compliance .compliance-list { margin-top: 4px; }
 
 /* Clients: an auto-scrolling marquee. The track holds the logo list twice
    back-to-back and slides exactly one list-width to the left, so the loop
@@ -1280,41 +1316,23 @@ body.has-selection-bar .whatsapp-float { bottom: 104px; }
 }
 
 /* About page */
-.about-compliance { margin-top: 36px; }
 .about-more { margin-top: 34px; }
-
-.values-band {
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-  gap: 56px;
-  align-items: center;
-}
-
-.values-figure {
-  margin: 0;
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-}
-.values-figure img { display: block; width: 100%; height: 460px; object-fit: cover; }
-
-.value-grid-stacked { grid-template-columns: 1fr; gap: 26px; }
-.value-grid-stacked .value {
-  border-left: 3px solid var(--mv-green);
-  padding-left: 20px;
-}
 
 /* Responsive */
 @media (max-width: 1024px) {
   .card-grid { grid-template-columns: repeat(2, 1fr); }
   .about-grid, .contact-grid, .contact-page-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-highlights { grid-template-columns: repeat(2, 1fr); }
+  .about-highlights .panel-compliance { grid-column: 1 / -1; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 
-  /* Home page teaser: on a single column, show the image right under the eyebrow
-     instead of after all the copy. */
-  .about-grid-stretch .about-copy { display: contents; }
-  .about-grid-stretch .about-eyebrow { order: -1; }
-  .about-grid-stretch .about-copy > :not(.about-eyebrow) { order: 1; }
+  /* Home page teaser only: on a single column, show the image right under the
+     eyebrow instead of after all the copy. The About page's own "Our story"
+     section reuses .about-grid-stretch for the desktop stretch behaviour but
+     should keep its natural order (copy, then image) on mobile. */
+  #about .about-grid-stretch .about-copy { display: contents; }
+  #about .about-grid-stretch .about-eyebrow { order: -1; }
+  #about .about-grid-stretch .about-copy > :not(.about-eyebrow) { order: 1; }
 
   .service-list { gap: 68px; }
   .service-detail { grid-template-columns: 1fr; gap: 32px; }
@@ -1323,8 +1341,6 @@ body.has-selection-bar .whatsapp-float { bottom: 104px; }
   .service-figure img { height: 320px; }
   .safety-inner { grid-template-columns: 1fr; gap: 36px; }
   .safety-figure img { max-width: 260px; }
-  .values-band { grid-template-columns: 1fr; gap: 36px; }
-  .values-figure img { height: 320px; }
   .product-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
@@ -1381,6 +1397,7 @@ body.has-selection-bar .whatsapp-float { bottom: 104px; }
   .hero { min-height: 560px; }
   .hero-copy { padding-left: 18px; }
   .card-grid { grid-template-columns: 1fr; }
+  .about-highlights { grid-template-columns: 1fr; margin-top: 40px; }
   .client-logos li { width: 140px; min-height: 104px; padding: 18px 14px; }
   .client-logos img { height: 54px; }
   .brand-logo { height: 42px; }

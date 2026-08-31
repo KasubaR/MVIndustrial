@@ -9,7 +9,10 @@
           the full delivery chain so your operation keeps running.
         </p>
       </div>
-      <a class="btn btn-outline" href="{{ route('services') }}">View all services</a>
+      <a class="btn btn-outline" href="{{ route('services') }}">
+        View all services
+        <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+      </a>
     </div>
 
     @php
