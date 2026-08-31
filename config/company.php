@@ -1,5 +1,9 @@
 <?php
 
+// Full years elapsed since incorporation, so the "years in operation" stat
+// below ticks up on its own each anniversary instead of being hand-edited.
+$yearsInOperation = (new DateTime('2012-01-03'))->diff(new DateTime('now'))->y;
+
 return [
 
     'name' => 'MV Industrial & Mining Supplies Limited',
@@ -58,7 +62,7 @@ return [
     ],
 
     'stats' => [
-        ['value' => '12+', 'label' => 'Years in operation'],
+        ['value' => $yearsInOperation . '+', 'label' => 'Years in operation'],
         ['value' => '50+', 'label' => 'Projects completed'],
         ['value' => '100+', 'label' => 'Workforce supplied'],
         ['value' => '5+', 'label' => 'Sectors served'],
