@@ -34,7 +34,9 @@
   overflow: hidden;
   box-shadow: var(--shadow-md);
 }
-.about-figure img { width: 100%; height: 260px; object-fit: cover; }
+/* The technician photo has the subject standing on the right two-thirds of
+   the frame; a plain center crop clips him, so bias the crop rightward. */
+.about-figure img { width: 100%; height: 260px; object-fit: cover; object-position: 75% center; }
 
 /* Home page teaser: image on the right, stretched to match the copy column's height. */
 .about-grid-stretch { align-items: stretch; }

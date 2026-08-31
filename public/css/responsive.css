@@ -20,6 +20,14 @@
   .values-band { grid-template-columns: 1fr; gap: 36px; }
   .values-figure img { height: 320px; }
   .product-grid { grid-template-columns: repeat(4, 1fr); }
+
+  /* Home page teaser only: on a single column, show the image right under the
+     eyebrow instead of after all the copy. The About page's own "Our story"
+     section reuses .about-grid-stretch for the desktop stretch behaviour but
+     should keep its natural order (copy, then image) on mobile. */
+  #about .about-grid-stretch .about-copy { display: contents; }
+  #about .about-grid-stretch .about-eyebrow { order: -1; }
+  #about .about-grid-stretch .about-copy > :not(.about-eyebrow) { order: 1; }
 }
 
 @media (max-width: 900px) {
