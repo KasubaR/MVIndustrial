@@ -66,5 +66,9 @@
   <div class="shell footer-bottom">
     <p>&copy; {{ date('Y') }} {{ config('company.name') }}. All rights reserved.</p>
     <p>Registered in Zambia &middot; Quality &amp; Safety Committed</p>
+    <a class="footer-credit" href="https://kinpinarts.com/" rel="noopener" target="_blank">
+      Powered by
+      <img src="{{ asset('assets/kinpinarts-logo.svg') }}" alt="Kinpin Arts" width="72" height="25">
+    </a>
   </div>
 </footer>

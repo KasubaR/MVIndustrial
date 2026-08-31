@@ -54,3 +54,11 @@
   font-size: .82rem;
 }
 .footer-bottom p { margin: 0; }
+
+.footer-credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.footer-credit img { height: 15px; width: auto; display: block; opacity: .85; }
+.footer-credit:hover img { opacity: 1; }
