@@ -12,7 +12,7 @@
         <a class="nav-link @if ($item['key'] === $activeNav) is-active @endif"
            href="{{ isset($item['route']) ? route($item['route']) : $item['href'] }}">{{ $item['label'] }}</a>
       @endforeach
-      <a class="btn btn-primary nav-cta-mobile" href="{{ route('contact') }}">Request a Quote</a>
+      <a class="btn btn-outline nav-cta-mobile" href="{{ route('contact') }}">Request a Quote</a>
     </nav>
 
     <div class="nav-actions">
