@@ -6,13 +6,13 @@
 
 @section('content')
 
-  <section class="page-header">
-    <div class="page-header-media" aria-hidden="true">
+  <section class="page-hero page-hero-low">
+    <div class="page-hero-media" aria-hidden="true">
       <img src="{{ asset('assets/images/services/' . $service['image']) }}" alt="">
-      <span class="hero-veil"></span>
+      <span class="page-hero-veil"></span>
     </div>
-    <div class="shell page-header-inner">
-      <div class="page-header-copy">
+    <div class="shell page-hero-inner">
+      <div class="page-hero-copy">
         <p class="eyebrow"><a class="breadcrumb-link" href="{{ route('services') }}">Services</a> / {{ $service['title'] }}</p>
         <h1>{{ $service['title'] }}</h1>
       </div>

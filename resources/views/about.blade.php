@@ -6,16 +6,16 @@
 
 @section('content')
 
-  <section class="page-header">
-    <div class="page-header-media" aria-hidden="true">
+  <section class="page-hero page-hero-low">
+    <div class="page-hero-media" aria-hidden="true">
       <img src="{{ asset('assets/images/about/about-header.png') }}" alt="">
-      <span class="hero-veil"></span>
+      <span class="page-hero-veil"></span>
     </div>
-    <div class="shell page-header-inner">
-      <div class="page-header-copy">
+    <div class="shell page-hero-inner">
+      <div class="page-hero-copy">
         <p class="eyebrow">About us</p>
         <h1>Wholly Zambian-owned, built on delivery</h1>
-        <p class="page-header-lead">
+        <p class="page-hero-lead">
           Supplying and servicing the mining and industrial sectors from Kitwe since 2012, with the people,
           certifications and supplier network to back it up.
         </p>
@@ -26,7 +26,7 @@
   <section class="stats" aria-label="Company highlights">
     <div class="shell stats-grid">
       @foreach (config('company.stats') as $stat)
-        <div class="stat-card">
+        <div class="stat-card surface">
           <span class="stat-value">{{ $stat['value'] }}</span>
           <span class="stat-label">{{ $stat['label'] }}</span>
         </div>
@@ -52,20 +52,20 @@
     </div>
 
     <div class="shell about-highlights">
-      <div class="panel panel-vision">
-        <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+      <div class="panel panel-vision hover-lift">
+        <span class="icon-tile icon-tile-translucent material-symbols-outlined" aria-hidden="true">visibility</span>
         <h3>Our Vision</h3>
         <p>{{ config('company.vision') }}</p>
       </div>
-      <div class="panel panel-mission">
-        <span class="material-symbols-outlined" aria-hidden="true">flag</span>
+      <div class="panel panel-mission hover-lift">
+        <span class="icon-tile icon-tile-translucent material-symbols-outlined" aria-hidden="true">flag</span>
         <h3>Our Mission</h3>
         <p>{{ config('company.mission') }}</p>
       </div>
-      <div class="panel panel-compliance">
-        <span class="material-symbols-outlined" aria-hidden="true">policy</span>
+      <div class="panel panel-compliance hover-lift">
+        <span class="icon-tile material-symbols-outlined" aria-hidden="true">policy</span>
         <h3>Registered and compliant</h3>
-        <ul class="compliance-list">
+        <ul class="compliance-list dot-list">
           @foreach (config('company.compliance') as $item)
             <li>{{ $item }}</li>
           @endforeach
@@ -75,15 +75,17 @@
   </section>
 
   <section class="section section-muted" id="values">
-    <div class="shell about-grid about-grid-stretch">
-      <div class="about-copy">
-        <p class="eyebrow eyebrow-dark about-eyebrow">Our values</p>
+    <div class="shell values-band">
+      <figure class="values-figure">
+        <img src="{{ asset('assets/images/about/about-portrait.jpg') }}" alt="An MV team member wearing a safety helmet" loading="lazy">
+      </figure>
+      <div class="values-copy">
+        <p class="eyebrow eyebrow-dark">Our values</p>
         <h2>What we hold ourselves to</h2>
         <p class="section-lead">
           Three principles guide how we quote, hire and deliver, and they are the standard our clients hold us to.
         </p>
-
-        <div class="value-grid">
+        <div class="value-grid value-grid-stacked">
           @foreach (config('company.values') as $value)
             <div class="value">
               <span class="material-symbols-outlined" aria-hidden="true">{{ $value['icon'] }}</span>
@@ -93,12 +95,6 @@
           @endforeach
         </div>
       </div>
-
-      <aside class="about-side about-side-solo">
-        <figure class="about-figure">
-          <img src="{{ asset('assets/images/about/about-portrait.jpg') }}" alt="An MV team member wearing a safety helmet" loading="lazy">
-        </figure>
-      </aside>
     </div>
   </section>
 
@@ -118,8 +114,8 @@
 
       <div class="card-grid">
         @foreach (config('company.differentiators') as $item)
-          <article class="card">
-            <span class="card-icon material-symbols-outlined" aria-hidden="true">{{ $item['icon'] }}</span>
+          <article class="card surface hover-lift">
+            <span class="icon-tile material-symbols-outlined" aria-hidden="true">{{ $item['icon'] }}</span>
             <h3>{{ $item['title'] }}</h3>
             <p>{{ $item['description'] }}</p>
           </article>

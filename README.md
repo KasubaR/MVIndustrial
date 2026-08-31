@@ -25,7 +25,6 @@ Built with Laravel (Blade views, no SPA), Vite and Tailwind CSS.
 
 - PHP 8.3+
 - Composer
-- Node.js + npm
 
 ### Setup
 
@@ -35,29 +34,26 @@ cp .env.example .env
 php artisan key:generate
 touch database/database.sqlite
 php artisan migrate
-npm install
 ```
 
 ### Running locally
 
 ```bash
-composer run dev
-```
-
-This runs the Laravel server, queue listener and Vite dev server together. Alternatively, run them separately:
-
-```bash
 php artisan serve
-npm run dev
 ```
 
 The site is then available at the URL printed by `php artisan serve` (defaults to `http://localhost:8000`).
 
-### Building assets for production
+### Front-end assets
 
-```bash
-npm run build
-```
+There is no build step. The stylesheets are hand-authored CSS partials pulled
+together by `public/css/app.css`, and the scripts are native ES modules
+imported by `public/js/app.js`. Edit the files in place and reload.
+
+The layout appends a cache-busting query string derived from the newest file
+mtime across `public/css` and `public/js` (see
+[`app/Support/Assets.php`](app/Support/Assets.php)), and `public/.htaccess`
+marks CSS and JS `no-cache` so the imported partials revalidate too.
 
 ## Configuration
 
@@ -71,12 +67,14 @@ Company details, navigation, services, products, client logos and social/WhatsAp
 ## Project structure
 
 ```
-app/Http/Controllers/   Page and contact form controllers
+app/Http/Controllers/    Page and contact form controllers
 app/Mail/                Contact enquiry mailable
+app/Support/Assets.php   Cache-busting version for the CSS and JS entry points
 config/company.php       All site content and company details
 resources/views/         Blade templates (pages, sections, partials)
 public/assets/           Images, logos and client marks
-public/css/styles.css    Compiled/hand-authored site styles
+public/css/              Design tokens, base, primitives, components, pages
+public/js/               ES modules: nav, listbox, products, modal
 routes/web.php           Route definitions
 ```
 

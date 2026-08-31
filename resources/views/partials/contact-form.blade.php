@@ -55,23 +55,18 @@
     </div>
   </div>
 
+  {{-- A real select so the field submits with or without JS. Marked
+       data-listbox so the front end upgrades it into the custom dropdown. --}}
   @php($topicValue = old('topic', $prefillTopic ?? ''))
   <div class="field">
-    <span class="field-label" id="topic-label">What do you need? <span aria-hidden="true">*</span></span>
-    <div class="product-filter" id="topic-select">
-      <button type="button" class="product-filter-trigger" id="topic-trigger"
-              aria-haspopup="listbox" aria-expanded="false" aria-controls="topic-list" aria-labelledby="topic-label topic-select-label"
-              @error('topic') aria-invalid="true" aria-describedby="topic-error" @enderror>
-        <span class="product-filter-label" id="topic-select-label">{{ $topicValue !== '' ? $topicValue : 'Select a service' }}</span>
-        <span class="material-symbols-outlined product-filter-chevron" aria-hidden="true">expand_more</span>
-      </button>
-      <ul class="product-filter-list" id="topic-list" role="listbox" aria-label="What do you need?" tabindex="-1" hidden>
-        @foreach (config('company.enquiry_topics') as $topic)
-          <li role="option" aria-selected="{{ $topicValue === $topic ? 'true' : 'false' }}" @class(['is-selected' => $topicValue === $topic]) data-value="{{ $topic }}" data-label="{{ $topic }}">{{ $topic }}</li>
-        @endforeach
-      </ul>
-      <input type="hidden" id="topic" name="topic" value="{{ $topicValue }}">
-    </div>
+    <label for="topic">What do you need? <span aria-hidden="true">*</span></label>
+    <select id="topic" name="topic" required data-listbox="field"
+            @error('topic') aria-invalid="true" aria-describedby="topic-error" @enderror>
+      <option value="" @selected($topicValue === '')>Select a service</option>
+      @foreach (config('company.enquiry_topics') as $topic)
+        <option value="{{ $topic }}" @selected($topicValue === $topic)>{{ $topic }}</option>
+      @endforeach
+    </select>
     @error('topic')
       <span class="field-error" id="topic-error">{{ $message }}</span>
     @enderror

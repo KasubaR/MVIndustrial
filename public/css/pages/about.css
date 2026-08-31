@@ -1,0 +1,71 @@
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: var(--gap-section);
+  align-items: start;
+}
+
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 36px;
+}
+
+.value {
+  border-left: 3px solid var(--mv-green);
+  padding-left: 20px;
+}
+.value .material-symbols-outlined {
+  font-size: 30px;
+  color: var(--mv-green);
+  font-variation-settings: "FILL" 1;
+  margin-bottom: 10px;
+  display: block;
+}
+.value h3 { font-size: 1rem; margin-bottom: 6px; }
+.value p { font-size: .9rem; margin: 0; }
+
+.about-side { display: grid; gap: 20px; }
+
+.about-figure {
+  margin: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+.about-figure img { width: 100%; height: 260px; object-fit: cover; }
+
+/* Home page teaser: image on the right, stretched to match the copy column's height. */
+.about-grid-stretch { align-items: stretch; }
+.about-side-solo .about-figure { height: 100%; }
+.about-side-solo .about-figure img { height: 100%; min-height: 420px; }
+
+/* Vision / mission / compliance triad: three matched cards instead of two
+   sidebar panels and an orphaned card buried in the story copy. */
+.about-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: var(--gap-section);
+}
+.about-highlights .panel { display: flex; flex-direction: column; }
+
+.about-more { margin-top: 34px; }
+
+.values-band {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: var(--gap-section);
+  align-items: center;
+}
+
+.values-figure {
+  margin: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+.values-figure img { display: block; width: 100%; height: 460px; object-fit: cover; }
+
+.value-grid-stacked { grid-template-columns: 1fr; gap: 26px; }

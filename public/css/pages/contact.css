@@ -1,0 +1,54 @@
+.contact-page-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: var(--gap-section);
+  align-items: start;
+}
+
+.contact-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; }
+.contact-list li { display: flex; gap: 14px; }
+.contact-list h3 { font-size: .95rem; margin-bottom: 4px; }
+.contact-list h4 { font-size: .95rem; margin: 0 0 4px; }
+.contact-list p { margin: 0; font-size: .94rem; }
+
+.contact-list-stacked { grid-template-columns: 1fr; gap: 20px; }
+
+.hours-list { display: grid; gap: 12px; font-size: .94rem; }
+.hours-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--mv-line);
+}
+.hours-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+.hours-value { font-weight: 600; color: var(--mv-ink); }
+
+.compliance-list { font-size: .92rem; }
+
+/* Quote band */
+.quote-band {
+  color: var(--mv-white);
+  padding: 72px 0;
+}
+.quote-band h2 { color: var(--mv-white); margin-bottom: 14px; }
+.quote-band p { color: rgba(255, 255, 255, .92); margin: 0 auto; max-width: 620px; }
+
+.quote-card {
+  max-width: 960px;
+  margin-inline: auto;
+  padding: 64px 48px;
+  border-radius: var(--radius);
+  background: var(--mv-gradient);
+  box-shadow: var(--shadow-md);
+}
+
+.quote-inner { text-align: center; }
+
+.quote-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 32px;
+}

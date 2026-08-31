@@ -1,0 +1,76 @@
+/* Custom single-select built by JS on top of a real <select>. Two shapes:
+   a pill for toolbar filters and a rounded rect that matches form fields. */
+.listbox { position: relative; }
+
+.listbox-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  border: 1px solid var(--mv-line);
+  border-radius: 999px;
+  padding: 10px 16px;
+  font: inherit;
+  font-size: .92rem;
+  color: var(--mv-ink);
+  background: var(--mv-white);
+  cursor: pointer;
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+.listbox-trigger:hover,
+.listbox-trigger[aria-expanded="true"] { border-color: var(--mv-blue); }
+.listbox-trigger[aria-invalid="true"] { border-color: var(--mv-danger); }
+
+.listbox-trigger .material-symbols-outlined {
+  font-size: 20px;
+  color: var(--mv-body);
+  flex-shrink: 0;
+}
+
+.listbox-value { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Scoped to the trigger so it outranks the generic icon size above without
+   needing !important. */
+.listbox-trigger .listbox-chevron {
+  font-size: 18px;
+  margin-left: auto;
+  transition: transform var(--ease);
+}
+.listbox-trigger[aria-expanded="true"] .listbox-chevron { transform: rotate(180deg); }
+
+.listbox-list {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 20;
+  min-width: 220px;
+  max-height: 320px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  box-shadow: var(--shadow-md);
+}
+.listbox-list[hidden] { display: none; }
+
+.listbox-option {
+  padding: 11px 14px;
+  border-radius: 8px;
+  font-size: .9rem;
+  color: var(--mv-body);
+  cursor: pointer;
+  transition: background-color var(--ease), color var(--ease);
+}
+.listbox-option:hover,
+.listbox-option.is-focused { background: var(--mv-gray); color: var(--mv-ink); }
+.listbox-option.is-selected { color: var(--mv-blue); font-weight: 600; }
+
+/* Field variant: matches the shape and metrics of .field inputs. */
+.listbox-field .listbox-trigger {
+  border-radius: var(--radius-sm);
+  padding: 13px 15px;
+  font-size: 1rem;
+  line-height: normal;
+}
+.listbox-field .listbox-trigger[aria-expanded="true"] { box-shadow: var(--focus-ring); }
+.listbox-field .listbox-list { border-radius: var(--radius-sm); }

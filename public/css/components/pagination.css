@@ -1,0 +1,37 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 40px;
+}
+
+.pagination-pages { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+
+.pagination-btn {
+  display: grid;
+  place-items: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 6px;
+  color: var(--mv-body);
+  font-size: .88rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: border-color var(--ease), background-color var(--ease), color var(--ease);
+}
+.pagination-btn:hover { border-color: var(--mv-blue); color: var(--mv-blue); }
+.pagination-btn.is-active { background: var(--mv-blue); border-color: var(--mv-blue); color: var(--mv-white); }
+.pagination-btn:disabled { opacity: .4; cursor: not-allowed; }
+.pagination-btn:disabled:hover { border-color: var(--mv-line); color: var(--mv-body); }
+.pagination-arrow .material-symbols-outlined { font-size: 20px; }
+
+/* Gap marker in a windowed page list; not interactive. */
+.pagination-gap {
+  display: grid;
+  place-items: center;
+  min-width: 24px;
+  height: 40px;
+  color: var(--mv-body);
+}

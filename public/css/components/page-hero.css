@@ -1,0 +1,51 @@
+/* One component for the home hero and every inner page header: full-bleed
+   photo, dark veil, left-ruled copy block. Pages that want a different focal
+   point on the photo set --hero-focus. */
+.page-hero {
+  --hero-focus: center 55%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 640px;
+  height: 82vh;
+  height: 82svh;
+  padding-top: var(--header-h);
+  color: var(--mv-white);
+}
+
+/* Inner pages sit the crop slightly lower so headline copy clears faces. */
+.page-hero-low { --hero-focus: center 60%; }
+
+.page-hero-media { position: absolute; inset: 0; z-index: 0; }
+.page-hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--hero-focus);
+}
+
+.page-hero-veil {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .6);
+  mix-blend-mode: multiply;
+}
+
+.page-hero-inner { position: relative; z-index: 1; }
+
+.page-hero-copy {
+  max-width: 720px;
+  border-left: 4px solid var(--mv-green);
+  padding-left: 26px;
+}
+.page-hero-copy h1 { color: var(--mv-white); }
+
+.page-hero-lead {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: var(--on-dark);
+  max-width: 620px;
+  margin-bottom: 32px;
+}
+.page-hero-lead:last-child { margin-bottom: 0; }
+
+.page-hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }

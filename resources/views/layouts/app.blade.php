@@ -10,9 +10,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+@php($assets = \App\Support\Assets::version())
+<link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ $assets }}">
+<script type="module" src="{{ asset('js/app.js') }}?v={{ $assets }}"></script>
 </head>
-<body>
+<body @yield('body_attributes')>
 <a class="skip-link" href="#main">Skip to main content</a>
 
 @include('partials.header')
@@ -23,7 +25,5 @@
 
 @include('partials.footer')
 @include('partials.whatsapp-float')
-
-<script src="{{ asset('js/site.js') }}"></script>
 </body>
 </html>

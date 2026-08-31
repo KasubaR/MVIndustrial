@@ -1,0 +1,52 @@
+:root {
+  /* Brand */
+  --mv-blue: #164898;
+  --mv-green: #3eb659;
+  --mv-white: #ffffff;
+  --mv-gray: #ecedee;
+  --mv-gradient: linear-gradient(90deg, var(--mv-green), var(--mv-blue));
+
+  --mv-blue-dark: #0e3068;
+  --mv-ink: #10192b;
+  --mv-body: #4b5565;
+  --mv-line: #dcdfe4;
+
+  /* Status */
+  --mv-danger: #c0392b;
+  --mv-danger-ink: #a33224;
+  --mv-danger-wash: rgba(192, 57, 43, .08);
+  --mv-success-ink: #1d6b32;
+  --mv-success-wash: rgba(62, 182, 89, .12);
+  --mv-whatsapp: #25d366;
+
+  /* Text on dark or photographic backgrounds */
+  --on-dark: rgba(255, 255, 255, .9);
+  --on-dark-muted: rgba(255, 255, 255, .78);
+  --on-dark-faint: rgba(255, 255, 255, .55);
+  --on-dark-line: rgba(255, 255, 255, .22);
+  --on-dark-wash: rgba(255, 255, 255, .16);
+
+  /* Layout */
+  --shell: 1280px;
+  --header-h: 78px;
+  --scroll-offset: 108px;
+  --gutter: 20px;
+  --gap-section: 56px;
+
+  /* Surfaces */
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow-sm: 0 1px 2px rgba(16, 25, 43, .06), 0 6px 18px rgba(16, 25, 43, .06);
+  --shadow-md: 0 12px 36px rgba(16, 25, 43, .12);
+  --focus-ring: 0 0 0 3px rgba(22, 72, 152, .16);
+
+  /* Motion */
+  --ease: 200ms ease;
+  --lift: -6px;
+
+  /* Uppercase micro-label typography, shared by buttons, nav, form labels,
+     footer headings and stat captions. */
+  --label-size: .82rem;
+  --label-weight: 600;
+  --label-tracking: .06em;
+}

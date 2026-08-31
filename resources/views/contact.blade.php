@@ -8,16 +8,16 @@
 
 @section('content')
 
-  <section class="page-header">
-    <div class="page-header-media" aria-hidden="true">
+  <section class="page-hero page-hero-low">
+    <div class="page-hero-media" aria-hidden="true">
       <img src="{{ asset('assets/images/contact-handshake.jpg') }}" alt="">
-      <span class="hero-veil"></span>
+      <span class="page-hero-veil"></span>
     </div>
-    <div class="shell page-header-inner">
-      <div class="page-header-copy">
+    <div class="shell page-hero-inner">
+      <div class="page-hero-copy">
         <p class="eyebrow">Contact us</p>
         <h1>Let's get your operation supplied</h1>
-        <p class="page-header-lead">
+        <p class="page-hero-lead">
           Tell us what you need and our Kitwe team will come back with pricing, lead times and availability.
         </p>
       </div>
@@ -36,18 +36,18 @@
       </div>
 
       <aside class="contact-details">
-        <div class="detail-card">
+        <div class="detail-card surface">
           <h3>Head office</h3>
           <ul class="contact-list contact-list-stacked">
             <li>
-              <span class="material-symbols-outlined" aria-hidden="true">location_on</span>
+              <span class="icon-tile icon-tile-soft material-symbols-outlined" aria-hidden="true">location_on</span>
               <div>
                 <h4>Visit us</h4>
                 <p>{!! implode('<br>', array_map('e', $contact['address_lines'])) !!}</p>
               </div>
             </li>
             <li>
-              <span class="material-symbols-outlined" aria-hidden="true">call</span>
+              <span class="icon-tile icon-tile-soft material-symbols-outlined" aria-hidden="true">call</span>
               <div>
                 <h4>Call us</h4>
                 <p>
@@ -58,14 +58,14 @@
               </div>
             </li>
             <li>
-              <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+              <span class="icon-tile icon-tile-soft material-symbols-outlined" aria-hidden="true">mail</span>
               <div>
                 <h4>Email us</h4>
                 <p><a href="mailto:{{ $contact['email'] }}">{{ $contact['email'] }}</a></p>
               </div>
             </li>
             <li>
-              <span class="material-symbols-outlined" aria-hidden="true">language</span>
+              <span class="icon-tile icon-tile-soft material-symbols-outlined" aria-hidden="true">language</span>
               <div>
                 <h4>Online</h4>
                 <p><a href="{{ $contact['website'] }}" rel="noopener">{{ $contact['website_label'] }}</a></p>
@@ -74,7 +74,7 @@
           </ul>
         </div>
 
-        <div class="detail-card">
+        <div class="detail-card surface">
           <h3>Office hours</h3>
           <ul class="hours-list">
             @foreach (config('company.office_hours') as $slot)
@@ -86,9 +86,9 @@
           </ul>
         </div>
 
-        <div class="detail-card detail-card-accent">
+        <div class="detail-card detail-card-accent surface-accent">
           <h3>Registered and compliant</h3>
-          <ul class="compliance-list">
+          <ul class="compliance-list dot-list">
             @foreach (config('company.compliance') as $item)
               <li>{{ $item }}</li>
             @endforeach

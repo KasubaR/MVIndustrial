@@ -1,0 +1,104 @@
+/* Shared visual patterns. Components consume these and override the custom
+   properties instead of restating the underlying rules. */
+
+/* A bordered white panel: cards, stat tiles, spec tiles, dropdowns. */
+.surface {
+  background: var(--mv-white);
+  border: 1px solid var(--mv-line);
+  border-radius: var(--radius);
+}
+
+/* The same panel filled with brand blue, for the emphasised variants. */
+.surface-accent {
+  background: var(--mv-blue);
+  border: 1px solid var(--mv-blue);
+  border-radius: var(--radius);
+  color: var(--on-dark-muted);
+}
+.surface-accent h3,
+.surface-accent h4 { color: var(--mv-white); }
+
+/* Bulleted list where the marker is a brand dot rather than a glyph. */
+.dot-list {
+  --dot-size: 8px;
+  --dot-fill: var(--mv-green);
+  --dot-inset: 22px;
+  display: grid;
+  gap: 12px;
+}
+.dot-list > li {
+  position: relative;
+  padding-left: var(--dot-inset);
+}
+.dot-list > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .5em;
+  width: var(--dot-size);
+  height: var(--dot-size);
+  border-radius: 50%;
+  background: var(--dot-fill);
+}
+
+/* Two-column point list used by service and safety copy. */
+.dot-list-split {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 26px;
+}
+
+/* Rounded square holding a single icon glyph. */
+.icon-tile {
+  --tile-size: 52px;
+  --tile-radius: 12px;
+  --tile-fill: var(--mv-gradient);
+  --tile-ink: var(--mv-white);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: var(--tile-size);
+  height: var(--tile-size);
+  border-radius: var(--tile-radius);
+  background: var(--tile-fill);
+  color: var(--tile-ink);
+  font-size: 26px;
+}
+
+.icon-tile-soft {
+  --tile-size: 42px;
+  --tile-radius: var(--radius-sm);
+  --tile-fill: var(--mv-gray);
+  --tile-ink: var(--mv-blue);
+  font-size: 22px;
+}
+
+.icon-tile-translucent {
+  --tile-fill: var(--on-dark-wash);
+}
+
+.icon-tile-circle {
+  --tile-size: 42px;
+  --tile-radius: 50%;
+  --tile-fill: transparent;
+}
+
+/* Raises an element off the page on hover. Components tune --lift. */
+.hover-lift { transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease); }
+.hover-lift:hover {
+  transform: translateY(var(--lift));
+  box-shadow: var(--shadow-md);
+}
+
+/* Uppercase micro-label typography. One definition for every place that
+   needs it; components override --label-tracking where the design differs. */
+.label-caps,
+.btn,
+.nav-link,
+.field label,
+.site-footer h3,
+.stat-label {
+  font-size: var(--label-size);
+  font-weight: var(--label-weight);
+  letter-spacing: var(--label-tracking);
+  text-transform: uppercase;
+}

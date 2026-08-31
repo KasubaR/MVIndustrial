@@ -4,16 +4,16 @@
   </figure>
 
   <div class="service-body">
-    <span class="card-icon material-symbols-outlined" aria-hidden="true">{{ $service['icon'] }}</span>
+    <span class="icon-tile material-symbols-outlined" aria-hidden="true">{{ $service['icon'] }}</span>
     <h2>{{ $service['title'] }}</h2>
     <p class="service-lead">{{ $service['lead'] }}</p>
 
     @if (! empty($service['categories']))
       <div class="spec-grid">
         @foreach ($service['categories'] as $category)
-          <div class="spec-card">
+          <div class="spec-card surface hover-lift">
             <h3>{{ $category['title'] }}</h3>
-            <ul>
+            <ul class="dot-list">
               @foreach ($category['items'] as $item)
                 <li>{{ $item }}</li>
               @endforeach
@@ -22,7 +22,7 @@
         @endforeach
       </div>
     @elseif (! empty($service['points']))
-      <ul class="service-points">
+      <ul class="service-points dot-list dot-list-split">
         @foreach ($service['points'] as $point)
           <li>{{ $point }}</li>
         @endforeach

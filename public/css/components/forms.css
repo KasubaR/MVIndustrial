@@ -1,0 +1,67 @@
+.enquiry-form { display: grid; gap: 20px; }
+.field-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.field { display: grid; gap: 8px; }
+
+.field label { color: var(--mv-ink); }
+.field label span { color: var(--mv-green); }
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--mv-ink);
+  background: var(--mv-white);
+  border: 1px solid var(--mv-line);
+  border-radius: var(--radius-sm);
+  padding: 13px 15px;
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+.field textarea { resize: vertical; min-height: 140px; }
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--mv-blue);
+  box-shadow: var(--focus-ring);
+}
+
+.field input[aria-invalid="true"],
+.field select[aria-invalid="true"],
+.field textarea[aria-invalid="true"] { border-color: var(--mv-danger); }
+
+.field-error { font-size: .86rem; color: var(--mv-danger); }
+
+/* Off-screen rather than display:none so bots still see a fillable input. */
+.field-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  font-size: .95rem;
+  background: var(--mv-success-wash);
+  border: 1px solid var(--mv-green);
+  color: var(--mv-success-ink);
+}
+.form-status-error {
+  background: var(--mv-danger-wash);
+  border-color: var(--mv-danger);
+  color: var(--mv-danger-ink);
+}
+
+.enquiry-form .btn { justify-self: start; }
+
+.contact-form-panel h2 { margin-bottom: 12px; }
+.contact-form-panel .section-lead { margin-bottom: 32px; }

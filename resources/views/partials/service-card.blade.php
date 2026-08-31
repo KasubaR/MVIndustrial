@@ -1,9 +1,9 @@
-<article class="card @if (! empty($service['accent'])) card-accent @endif">
-  <span class="card-icon material-symbols-outlined" aria-hidden="true">{{ $service['icon'] }}</span>
+<article @class(['card', 'hover-lift', 'surface' => empty($service['accent']), 'surface-accent card-accent' => ! empty($service['accent'])])>
+  <span class="icon-tile material-symbols-outlined" aria-hidden="true">{{ $service['icon'] }}</span>
   <h3>{{ $service['title'] }}</h3>
   <p>{{ $service['summary'] }}</p>
   @if (! empty($service['points']))
-    <ul class="card-list">
+    <ul class="card-list dot-list">
       @foreach ($service['points'] as $point)
         <li>{{ $point }}</li>
       @endforeach

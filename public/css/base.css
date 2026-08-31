@@ -1,0 +1,103 @@
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 10px);
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--mv-body);
+  background: var(--mv-white);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: Montserrat, Inter, sans-serif;
+  color: var(--mv-ink);
+  line-height: 1.15;
+  margin: 0 0 16px;
+}
+
+h1 { font-size: clamp(2.1rem, 5vw, 3.6rem); font-weight: 800; letter-spacing: -.02em; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; letter-spacing: -.01em; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+p  { margin: 0 0 16px; }
+
+a { color: var(--mv-blue); text-decoration: none; transition: color var(--ease); }
+a:hover { color: var(--mv-green); }
+
+img { max-width: 100%; display: block; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+:focus-visible {
+  outline: 3px solid var(--mv-green);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  line-height: 1;
+  user-select: none;
+}
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  background: var(--mv-blue);
+  color: var(--mv-white);
+  padding: 12px 20px;
+  font-weight: 600;
+}
+.skip-link:focus { left: 12px; top: 12px; color: var(--mv-white); }
+
+/* Sections */
+.section { padding: 96px 0; }
+.section-muted { background: var(--mv-gray); }
+
+.section-head { max-width: 720px; margin-bottom: 52px; }
+.section-head-center { margin-inline: auto; text-align: center; }
+
+.section-head-split {
+  max-width: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
+.section-head-split > div { max-width: 720px; }
+.section-head-split .section-lead { margin-bottom: 0; }
+.section-head-split .btn-outline { flex-shrink: 0; margin-top: 0; }
+.section-lead { font-size: 1.05rem; }
+.section-head .btn-outline { margin-top: 24px; }
+
+.eyebrow {
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--mv-green);
+  margin-bottom: 14px;
+}
+.eyebrow-dark { color: var(--mv-blue); }
+
+.breadcrumb-link { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.breadcrumb-link:hover { color: var(--mv-white); }
+
+/* Set while a modal or the mobile nav owns the viewport. */
+body.modal-open,
+body.nav-open { overflow: hidden; }

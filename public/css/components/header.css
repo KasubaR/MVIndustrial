@@ -1,0 +1,122 @@
+/* The bar floats over the hero until the page scrolls, then solidifies. */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color var(--ease), border-color var(--ease), backdrop-filter var(--ease);
+}
+
+.site-header.is-solid {
+  background: rgba(255, 255, 255, .94);
+  backdrop-filter: blur(10px);
+  border-bottom-color: var(--mv-line);
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  height: var(--header-h);
+}
+
+.brand { display: inline-flex; align-items: center; gap: 12px; color: var(--mv-ink); }
+
+.brand-logo { height: 52px; width: auto; }
+
+/* Same lockup in both header states; only the wordmark colour changes so it
+   stays readable over the hero image. */
+.site-header .brand-logo { display: none; }
+.site-header .brand-logo-light { display: block; }
+.site-header.is-solid .brand-logo { display: block; }
+.site-header.is-solid .brand-logo-light { display: none; }
+
+.nav-links { display: flex; align-items: center; gap: 34px; }
+
+.nav-link {
+  --label-tracking: .08em;
+  position: relative;
+  color: rgba(255, 255, 255, .86);
+  padding: 6px 0;
+  transition: color var(--ease);
+}
+.site-header.is-solid .nav-link { color: var(--mv-body); }
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0; height: 2px;
+  background: var(--mv-gradient);
+  transition: width var(--ease);
+}
+.nav-link:hover, .nav-link.is-active { color: var(--mv-white); }
+.site-header.is-solid .nav-link:hover,
+.site-header.is-solid .nav-link.is-active { color: var(--mv-blue); }
+.nav-link:hover::after, .nav-link.is-active::after { width: 100%; }
+
+.nav-actions { display: flex; align-items: center; gap: 12px; }
+
+.site-header .nav-cta {
+  background: transparent;
+  border-color: transparent;
+  color: var(--mv-white);
+}
+.site-header .nav-cta:hover { background: var(--mv-white); color: var(--mv-blue); box-shadow: none; }
+.site-header.is-solid .nav-cta {
+  background: transparent;
+  border-color: transparent;
+  color: var(--mv-blue);
+}
+.site-header.is-solid .nav-cta:hover { background: var(--mv-blue); color: var(--mv-white); }
+.nav-links .nav-cta-mobile { display: none; }
+
+/* A gradient line that travels around the button outline. The mask cuts the
+   gradient down to a 2px ring so the button fill itself is untouched. */
+.site-header .nav-cta,
+.nav-links .nav-cta-mobile { position: relative; }
+
+.site-header .nav-cta::before,
+.nav-links .nav-cta-mobile::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 2px;
+  background: repeating-linear-gradient(90deg, var(--mv-green) 0, var(--mv-blue) 110px, var(--mv-green) 220px);
+  background-size: 220px 100%;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: cta-ring 5s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes cta-ring {
+  from { background-position: 0 0; }
+  to { background-position: 220px 0; }
+}
+
+.nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px; height: 44px;
+  border: 1px solid var(--on-dark-faint);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--mv-white);
+  cursor: pointer;
+  transition: border-color var(--ease), color var(--ease), background-color var(--ease);
+}
+.site-header.is-solid .nav-toggle {
+  border-color: var(--mv-line);
+  background: var(--mv-white);
+  color: var(--mv-ink);
+}
+.nav-toggle:hover { border-color: var(--mv-blue); }
+.site-header.is-solid .nav-toggle:hover { color: var(--mv-blue); }

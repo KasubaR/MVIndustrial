@@ -1,0 +1,115 @@
+/* Stats */
+.stats {
+  margin-top: -56px;
+  position: relative;
+  z-index: 2;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.stat-card {
+  position: relative;
+  overflow: hidden;
+  padding: 30px 24px 26px;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--mv-gradient);
+}
+
+.stat-value {
+  display: block;
+  font-family: Montserrat, sans-serif;
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: var(--mv-blue);
+  line-height: 1.1;
+}
+
+.stat-label {
+  --label-tracking: .08em;
+  display: block;
+  margin-top: 6px;
+  font-size: .8rem;
+  color: var(--mv-body);
+}
+
+/* Service and feature cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card { padding: 32px 28px; }
+.card:hover { border-color: transparent; }
+.card p { font-size: .97rem; }
+.card .icon-tile { margin-bottom: 20px; }
+
+.card-list { margin-top: 18px; gap: 8px; font-size: .92rem; }
+
+.card-accent .icon-tile { --tile-fill: var(--on-dark-wash); }
+
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: .92rem;
+}
+.card-link .material-symbols-outlined { font-size: 18px; transition: transform var(--ease); }
+.card-link:hover .material-symbols-outlined { transform: translateX(4px); }
+.card-accent .card-link { color: var(--mv-white); }
+
+/* Detail cards (contact sidebar) */
+.detail-card { padding: 28px 26px; margin-bottom: 20px; }
+.detail-card h3 { font-size: 1.05rem; margin-bottom: 18px; }
+.detail-card-accent { margin-bottom: 0; }
+
+/* Vision / mission / compliance panels */
+.panel {
+  border-radius: var(--radius);
+  padding: 30px 28px;
+  color: var(--mv-white);
+}
+.panel h3 { color: var(--mv-white); }
+.panel p { margin: 0; color: var(--on-dark); }
+.panel .icon-tile { margin-bottom: 20px; }
+
+.panel-vision { background: var(--mv-blue); }
+.panel-mission { background: linear-gradient(135deg, var(--mv-green), var(--mv-blue)); }
+
+.panel-compliance {
+  background: var(--mv-white);
+  border: 1px solid var(--mv-line);
+  color: var(--mv-ink);
+}
+.panel-compliance h3 { color: var(--mv-ink); }
+.panel-compliance .icon-tile { --tile-fill: var(--mv-gradient); }
+.panel-compliance .compliance-list { margin-top: 4px; }
+
+/* Spec tiles inside a service detail */
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+}
+.spec-card { padding: 22px 20px; }
+.spec-card:hover { border-color: transparent; }
+.spec-card h3 { font-size: 1rem; margin-bottom: 8px; color: var(--mv-blue); }
+.spec-card .dot-list {
+  --dot-size: 6px;
+  --dot-inset: 18px;
+  gap: 7px;
+  font-size: .89rem;
+}

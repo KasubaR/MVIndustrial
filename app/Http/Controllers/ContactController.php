@@ -11,7 +11,14 @@ class ContactController extends Controller
 {
     public function store(ContactRequest $request): RedirectResponse
     {
-        $enquiry = $request->safe()->except('website');
+        // The optional fields are absent from the validated data when a client
+        // omits them rather than posting them empty, so default them here and
+        // let the mail template rely on every key existing.
+        $enquiry = [
+            'phone' => null,
+            'company' => null,
+            ...$request->safe()->except('website'),
+        ];
 
         Mail::to(config('company.contact.email'))->send(new ContactEnquiry($enquiry));
 

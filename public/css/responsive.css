@@ -1,0 +1,127 @@
+/* All breakpoint overrides live here, one block per breakpoint, so the
+   cascade for a given width is readable in one place. The 900px value is
+   mirrored by NAV_BREAKPOINT in resources/js/nav.js. */
+
+@media (max-width: 1024px) {
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-grid,
+  .contact-page-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-highlights { grid-template-columns: repeat(2, 1fr); }
+  .about-highlights .panel-compliance { grid-column: 1 / -1; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+
+  .service-list { gap: 68px; }
+  .service-detail { grid-template-columns: 1fr; gap: 32px; }
+  .service-detail:nth-child(even) .service-figure { order: 0; }
+  .service-figure { position: static; }
+  .service-figure img { height: 320px; }
+  .safety-inner { grid-template-columns: 1fr; gap: 36px; }
+  .safety-figure img { max-width: 260px; }
+  .values-band { grid-template-columns: 1fr; gap: 36px; }
+  .values-figure img { height: 320px; }
+  .product-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .nav-toggle { display: inline-flex; }
+  .nav-cta { display: none; }
+  .nav-links .nav-cta-mobile { display: inline-flex; }
+
+  /* Collapsible panel. The closed state caps height at 0 and the open state
+     allows the panel to grow with its contents, scrolling if the viewport is
+     short, so adding nav items can never clip the last one. */
+  .nav-links {
+    position: absolute;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding: 0 var(--gutter);
+    background: var(--mv-white);
+    border-bottom: 1px solid transparent;
+    box-shadow: none;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    visibility: hidden;
+    transition: max-height .32s ease, opacity .22s ease, transform .28s ease, visibility 0s linear .32s;
+  }
+  .nav-links.is-open {
+    max-height: calc(100svh - var(--header-h));
+    overflow-y: auto;
+    padding: 16px var(--gutter) 24px;
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    border-bottom-color: var(--mv-line);
+    box-shadow: var(--shadow-md);
+    transition: max-height .32s ease, opacity .28s ease .04s, transform .32s ease, padding .32s ease, border-color .32s ease, box-shadow .32s ease;
+  }
+  .nav-link { padding: 12px 0; border-bottom: 1px solid var(--mv-line); }
+  .nav-link::after { display: none; }
+  .nav-cta-mobile { margin-top: 14px; }
+
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .value-grid { grid-template-columns: 1fr; gap: 18px; }
+
+  .section-head-split { flex-direction: column; align-items: flex-start; }
+  .section-head-split .btn-outline { margin-top: 8px; }
+
+  .product-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .section { padding: 68px 0; }
+
+  .page-hero { min-height: 560px; }
+  .page-hero-copy { padding-left: 18px; }
+  .page-hero-actions .btn { width: 100%; }
+  .hero-talk-btn { display: none; }
+
+  .card-grid { grid-template-columns: 1fr; }
+  .about-highlights { grid-template-columns: 1fr; margin-top: 40px; }
+  .client-logos li { width: 140px; min-height: 104px; padding: 18px 14px; }
+  .client-logos img { height: 54px; }
+  .brand-logo { height: 42px; }
+  .contact-list { grid-template-columns: 1fr; }
+  .field-row { grid-template-columns: 1fr; }
+  .enquiry-form .btn { justify-self: stretch; width: 100%; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+
+  .quote-actions .btn { width: 100%; }
+  .quote-card { padding: 44px 24px; }
+
+  .dot-list-split { grid-template-columns: 1fr; }
+  .spec-grid { grid-template-columns: 1fr; }
+  .service-figure img { height: 240px; }
+  .safety-band { padding: 64px 0; }
+
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .product-controls { flex-direction: column; align-items: stretch; }
+  .product-search { max-width: none; flex: 0 1 auto; }
+  .listbox-list { left: 0; right: 0; min-width: 0; }
+  .product-selection-bar { flex-direction: column; align-items: stretch; padding: 14px 16px; }
+  .product-selection-actions .btn { flex: 1; }
+  body.has-selection-bar .whatsapp-float { bottom: 148px; }
+
+  .modal-dialog { padding: 32px 22px 24px; }
+  .product-modal-icon { --tile-size: 160px; --tile-radius: 24px; font-size: 72px; }
+
+  .whatsapp-float { right: 16px; bottom: 16px; width: 52px; height: 52px; }
+}
+
+/* Stops the decorative motion (marquee, travelling CTA ring, hover lifts,
+   panel slides) without flattening colour fades, which carry no motion. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *, *::before, *::after {
+    animation: none !important;
+    transition-property: color, background-color, border-color, box-shadow, outline-color !important;
+    transition-duration: 150ms !important;
+  }
+}

@@ -8,16 +8,16 @@
 
 @section('content')
 
-  <section class="page-header">
-    <div class="page-header-media" aria-hidden="true">
+  <section class="page-hero page-hero-low">
+    <div class="page-hero-media" aria-hidden="true">
       <img src="{{ asset('assets/images/services/services-header.jpg') }}" alt="">
-      <span class="hero-veil"></span>
+      <span class="page-hero-veil"></span>
     </div>
-    <div class="shell page-header-inner">
-      <div class="page-header-copy">
+    <div class="shell page-hero-inner">
+      <div class="page-hero-copy">
         <p class="eyebrow">Our services</p>
         <h1>Four capabilities, one accountable partner</h1>
-        <p class="page-header-lead">{{ config('company.services_intro') }}</p>
+        <p class="page-hero-lead">{{ config('company.services_intro') }}</p>
       </div>
     </div>
   </section>
@@ -36,10 +36,10 @@
         <img src="{{ asset('assets/images/services/' . $safety['image']) }}" alt="{{ $safety['alt'] }}" loading="lazy">
       </figure>
       <div class="safety-copy">
-        <span class="card-icon material-symbols-outlined" aria-hidden="true">health_and_safety</span>
+        <span class="icon-tile material-symbols-outlined" aria-hidden="true">health_and_safety</span>
         <h2>{{ $safety['title'] }}</h2>
         <p>{{ $safety['lead'] }}</p>
-        <ul class="safety-points">
+        <ul class="safety-points dot-list dot-list-split">
           @foreach ($safety['points'] as $point)
             <li>{{ $point }}</li>
           @endforeach

@@ -1,0 +1,56 @@
+.site-footer {
+  background: var(--mv-ink);
+  color: var(--on-dark-muted);
+  padding-top: 64px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 48px;
+}
+
+.site-footer h3 {
+  --label-tracking: .12em;
+  color: var(--mv-white);
+  margin-bottom: 16px;
+}
+
+.site-footer a { color: var(--on-dark-muted); }
+.site-footer a:hover { color: var(--mv-green); }
+
+/* mv-logo-mark.svg is the same full lockup as the header logo, but with the
+   wordmark recolored white so it reads on the dark footer background. */
+.footer-logo { height: 64px; }
+
+.footer-note { margin-top: 18px; font-size: .9rem; }
+.footer-contact p { font-size: .93rem; margin-bottom: 8px; }
+.footer-whatsapp { display: inline-flex; align-items: center; gap: 6px; }
+
+.footer-social p { font-size: .93rem; margin-bottom: 18px; }
+.social-links { display: flex; flex-wrap: wrap; gap: 12px; }
+.social-links a {
+  --lift: -3px;
+  border: 1px solid var(--on-dark-line);
+  color: var(--on-dark-muted);
+  transition: background var(--ease), border-color var(--ease), color var(--ease), transform var(--ease);
+}
+.social-links a:hover {
+  --tile-fill: var(--mv-green);
+  border-color: var(--mv-green);
+  color: var(--mv-white);
+}
+.social-links svg { display: block; }
+
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+  padding-top: 22px;
+  padding-bottom: 26px;
+  font-size: .82rem;
+}
+.footer-bottom p { margin: 0; }
